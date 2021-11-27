@@ -5,8 +5,10 @@
     "dev": "vite",
     "build": "vite build"
   },
-  "devDependencies": {
-    "vite": "^2.0.0",
+  "peerDependencies": {
     "vite-plugin-import-maps": "0.1.0"
+  },
+  "devDependencies": {
+    "vite": "^2.0.0"
   }
 }
