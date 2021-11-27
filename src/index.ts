@@ -1,7 +1,7 @@
 import { Plugin } from 'vite'
 import { ImportMap } from './types'
 
-const prefix = '/@'
+const prefix = '/@import-maps/'
 export function importMaps(options: ImportMap[] | (() => ImportMap[])): Plugin {
   if (typeof options === 'function') options = options()
   const oriImportMap: Required<ImportMap> = Object.assign(

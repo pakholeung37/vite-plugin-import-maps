@@ -1,53 +1,48 @@
-# vite-plugin-vue2-svg
+# vite-plugin-import-maps
 
-load SVG files as Vue components, for Vue2.x only.
-
-[![NPM](https://nodei.co/npm/vite-plugin-vue2-svg.png)](https://npmjs.org/package/vite-plugin-vue2-svg/)
-
-## Install
-
-```bash
-yarn add vite-plugin-vue2-svg
-# or
-npm install vite-plugin-vue2-svg
-```
+Use navtive browser import-maps in vite. What's [import-maps](https://github.com/WICG/import-maps)
 
 ## Usage
 
-```js
-// vite.config.ts
-import { defineConfig } from "vite";
-import { createVuePlugin } from "vite-plugin-vue2"; // vue2 plugin
-import { createSvgPlugin } from "vite-plugin-vue2-svg";
+Simply add import-maps plugin in vite.config
 
-export default defineConfig({
-  plugins: [createVuePlugin(), createSvgPlugin()],
-});
+```javascript
+// vite.config.js
+const { defineConfig } = require('vite')
+const { importMaps } = require('vite-plugin-import-maps')
+
+module.exports = defineConfig({
+  plugins: [
+    importMaps([
+      {
+        imports: {
+          lodash: 'https://esm.sh/lodash-es@4.17.20',
+        },
+      },
+    ]),
+  ],
+})
 ```
 
-```vue
-<!-- App.vue -->
-<template>
-  <Icon />
-</template>
-<script>
-import Icon from "./icon.svg";
+Then your module will import from cdn instead of vite pre-bundle module.
 
-export default {
-  components: {
-    Icon,
-  },
-};
+Cuz it use native import-maps, itt also allow you to use module in runtime.
+
+```html
+<!-- index.html -->
+<script type="module">
+  import _, { isNaN } from 'lodash'
+
+  console.log(_.isNaN(NaN)) // true
+  console.log(isNaN(NaN)) // true
 </script>
 ```
 
-## Options
+## Limitation
 
-```js
-createSvgPlugin({
-  svgoConfig: SVGO.Options, // check https://github.com/svg/svgo
-});
-```
+Until now, only Chrome implements the import-maps feature. But it is easy to use a polyfill with [es-module-shims](https://github.com/guybedford/es-module-shims).
+
+And to be ware, due to there is no for vite to unresolve bare moduleId, this plugin use an alia with the preifx `/@import-maps/`, which means `import 'lodash'` will transform to `import '/@import-maps/lodash'`.
 
 ## License
 
