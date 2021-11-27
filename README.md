@@ -2,6 +2,8 @@
 
 Use native browser import-maps in vite. What's [import-maps](https://github.com/WICG/import-maps)
 
+[![NPM](https://nodei.co/npm/vite-plugin-import-maps)](https://npmjs.org/package/vite-plugin-import-maps/)
+
 ## Usage
 
 Simply add import-maps plugin in vite.config
