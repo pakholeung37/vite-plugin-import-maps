@@ -43,7 +43,7 @@ export function importMaps(options: ImportMap[] | (() => ImportMap[])): Plugin {
       }
     },
     transformIndexHtml: {
-      enforce: 'pre',
+      enforce: 'post',
       transform(html) {
         return {
           html,
